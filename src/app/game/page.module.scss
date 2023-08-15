@@ -3,4 +3,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
+
+  .hits {
+    color: green;
+  }
+
+  .errors {
+    color: red;
+  }
 }

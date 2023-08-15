@@ -1,18 +1,18 @@
 import React from "react";
 import type { Metadata } from "next";
-import Home from "./index";
-import { PageWrapper } from "./page-wrapper";
+import { PageWrapper } from "../page-wrapper";
+import Game from "./index";
 
 export const metadata: Metadata = {
   title: "Concentration Game - Modyo",
   description: "Concentration Game created by @danielmillan",
 };
 
-export default function HomePage() {
+export default function GamePage() {
   return (
     <>
       <PageWrapper>
-        <Home />
+        <Game />
       </PageWrapper>
     </>
   );

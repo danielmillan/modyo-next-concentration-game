@@ -1,12 +1,15 @@
 "use client";
 
 import React from "react";
+import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
 
 export default function Home() {
+  const router = useRouter();
+
   const submitForm = (e: any) => {
     e.preventDefault();
-    console.log(e.target.name.value);
+    router.push("/setup");
   };
 
   return (
