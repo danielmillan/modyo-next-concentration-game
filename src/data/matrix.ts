@@ -1,4 +1,6 @@
-export const matrixSize = [
+import { MatrixDefinition } from "@/types/MatrixDefinition";
+
+export const matrixSize: MatrixDefinition[] = [
   {
     label: "2x2 (2 imágenes)",
     rows: 2,

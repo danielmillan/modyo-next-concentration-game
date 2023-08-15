@@ -1,5 +1,5 @@
 .main {
-  height: 100vh;
+  min-height: 98vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,5 +10,11 @@
 
   .errors {
     color: red;
+  }
+
+  .matrix_container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
   }
 }

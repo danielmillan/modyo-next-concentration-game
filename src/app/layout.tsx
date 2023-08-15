@@ -5,6 +5,7 @@ import { config } from "@fortawesome/fontawesome-svg-core";
 // Styles
 import "bootstrap/dist/css/bootstrap.css";
 import "./globals.scss";
+import { Providers } from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 config.autoAddCss = false;
@@ -22,14 +23,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="background_main">
-          <div className="box">
-            <div className="wave -one"></div>
-            <div className="wave -two"></div>
-            <div className="wave -three"></div>
+        <Providers>
+          <div className="background_main">
+            <div className="box">
+              <div className="wave -one"></div>
+              <div className="wave -two"></div>
+              <div className="wave -three"></div>
+            </div>
           </div>
-        </div>
-        <div className="content">{children}</div>
+          <div className="content">{children}</div>
+        </Providers>
       </body>
     </html>
   );

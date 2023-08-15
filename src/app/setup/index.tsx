@@ -5,6 +5,9 @@ import type { Metadata } from "next";
 import { useRouter } from "next/navigation";
 import styles from "./page.module.scss";
 import { matrixSize } from "@/data/matrix";
+import { useAppDispatch } from "@/redux/hooks";
+import { setMatrix } from "@/redux/slices/config";
+import { MatrixDefinition } from "@/types/MatrixDefinition";
 
 export const metadata: Metadata = {
   title: "Concentration Game - Modyo",
@@ -13,11 +16,13 @@ export const metadata: Metadata = {
 
 export default function Setup() {
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const submitForm = (e: any) => {
     e.preventDefault();
+    const matrixOption: MatrixDefinition = matrixSize[e.target.matrix.value];
+    dispatch(setMatrix(matrixOption));
     router.push("/game");
-    // console.log(e.target.matrix.value);
   };
 
   return (
@@ -36,7 +41,7 @@ export default function Setup() {
                 aria-label="Default select example"
               >
                 <option>Selecciona el tamaño del tablero</option>
-                {matrixSize.map((element, index) => (
+                {matrixSize.map((element: MatrixDefinition, index) => (
                   <option key={index} value={index}>
                     {element.label}
                   </option>
