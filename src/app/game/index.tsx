@@ -1,15 +1,17 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 import type { Metadata } from "next";
+import Link from "next/link";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLeftLong } from "@fortawesome/free-solid-svg-icons";
 import styles from "./page.module.scss";
 import { useAppSelector } from "@/redux/hooks";
 import { selectMatrix, selectName } from "@/redux/slices/config";
-import CardComponent from "@/components/Card";
 import Matrix from "@/components/Matrix";
+import { selectErrors, selectHits } from "@/redux/slices/game";
 
 export const metadata: Metadata = {
   title: "Concentration Game - Modyo",
@@ -19,20 +21,22 @@ export const metadata: Metadata = {
 export default function Game() {
   const name = useAppSelector(selectName);
   const matrix = useAppSelector(selectMatrix);
+  const hits = useAppSelector(selectHits);
+  const errors = useAppSelector(selectErrors);
 
   return (
     <main className={styles.main}>
-      <div className="card container">
-        <div className="card-body">
+      <Card className={`container ${styles.mtop_50}`}>
+        <Card.Body>
           <div className="d-flex justify-content-end">
             <Link href="/">
-              <button type="button" className="btn btn-light">
+              <Button type="button" variant="light">
                 <FontAwesomeIcon
                   icon={faLeftLong}
                   style={{ fontSize: 15, color: "blue" }}
                 />
                 <span className="ms-2">Regresar</span>
-              </button>
+              </Button>
             </Link>
           </div>
           <div className="mt-3 d-flex justify-content-between align-items-center">
@@ -45,16 +49,29 @@ export default function Game() {
               </span>
             </div>
             <div>
-              <span className={`me-2 ${styles.errors}`}>Aciertos:</span>
-              <span className={`me-2 ${styles.hits}`}>Errores:</span>
+              <span className={`me-2 ${styles.hits}`}>
+                Aciertos:
+                <span className={styles.score_text}>{hits}</span>
+              </span>
+              <span className={`me-2 ${styles.errors}`}>
+                Errores: <span className={styles.score_text}>{errors}</span>
+              </span>
             </div>
           </div>
 
           <div className={styles.matrix_container}>
-            <Matrix rows={matrix.rows} columns={matrix.columns} />
+            <Matrix
+              rows={matrix.rows}
+              columns={matrix.columns}
+              items={matrix.items}
+              gameLabel={matrix.label}
+              hits={hits}
+              errors={errors}
+              userName={name}
+            />
           </div>
-        </div>
-      </div>
+        </Card.Body>
+      </Card>
     </main>
   );
 }

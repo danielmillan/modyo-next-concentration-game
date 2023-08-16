@@ -1,13 +1,16 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import type { Metadata } from "next";
 import { useRouter } from "next/navigation";
+import Card from "react-bootstrap/Card";
+import Button from "react-bootstrap/Button";
 import styles from "./page.module.scss";
 import { matrixSize } from "@/data/matrix";
 import { useAppDispatch } from "@/redux/hooks";
 import { setMatrix } from "@/redux/slices/config";
 import { MatrixDefinition } from "@/types/MatrixDefinition";
+import { restoreStorage } from "@/redux/slices/game";
 
 export const metadata: Metadata = {
   title: "Concentration Game - Modyo",
@@ -18,6 +21,10 @@ export default function Setup() {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    dispatch(restoreStorage());
+  }, []);
+
   const submitForm = (e: any) => {
     e.preventDefault();
     const matrixOption: MatrixDefinition = matrixSize[e.target.matrix.value];
@@ -27,8 +34,8 @@ export default function Setup() {
 
   return (
     <main className={styles.main}>
-      <div className="card">
-        <div className="card-body">
+      <Card>
+        <Card.Body>
           <div>
             <form onSubmit={submitForm}>
               <label htmlFor="name" className="form-label">
@@ -39,6 +46,7 @@ export default function Setup() {
                 name="matrix"
                 className="form-select"
                 aria-label="Default select example"
+                required
               >
                 <option>Selecciona el tamaño del tablero</option>
                 {matrixSize.map((element: MatrixDefinition, index) => (
@@ -48,14 +56,14 @@ export default function Setup() {
                 ))}
               </select>
               <div className="d-flex mt-4">
-                <button type="submit" className="btn btn-primary w-100">
+                <Button type="submit" variant="primary" className="w-100">
                   Crear Juego
-                </button>
+                </Button>
               </div>
             </form>
           </div>
-        </div>
-      </div>
+        </Card.Body>
+      </Card>
     </main>
   );
 }

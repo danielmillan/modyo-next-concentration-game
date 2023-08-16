@@ -1,32 +1,32 @@
-import React, { useState } from "react";
+import React from "react";
 
 export default function CardComponent({
-  cardFrontImage,
+  index,
+  card,
+  clickEmitter,
+  setIsFlipped,
 }: {
-  cardFrontImage: string;
+  index: number;
+  card: any;
+  clickEmitter: Function;
+  setIsFlipped: Function;
 }) {
-  const [isFlipped, setIsFlipped] = useState(false);
-
   const handleCardClick = () => {
-    setIsFlipped(!isFlipped);
+    clickEmitter(index, card);
+    setIsFlipped(index, card);
   };
 
   return (
     <div
-      className={`game-card ${isFlipped ? "flipped" : ""}`}
+      className={`game-card ${card.isFlipped ? "flipped" : ""}`}
       onClick={handleCardClick}
     >
       <div className="game-card-inner">
         <div className="game-card-front">
-          <img
-            src="/assets/images/back-card.png"
-            alt="Card Image"
-            width={150}
-            height={200}
-          />
+          <img src="/assets/images/back-card.png" alt="Card Image" />
         </div>
         <div className="game-card-back">
-          <img src={cardFrontImage} alt="Card Back" width={150} height={200} />
+          <img src={card.animal.fields.image.url} alt="Card Back" />
         </div>
       </div>
     </div>

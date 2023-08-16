@@ -4,6 +4,11 @@
   justify-content: center;
   align-items: center;
 
+  .score_text {
+    color: #000;
+    margin-left: 5px;
+  }
+
   .hits {
     color: green;
   }
@@ -17,4 +22,8 @@
     display: flex;
     justify-content: center;
   }
+}
+
+.mtop_50 {
+  margin-top: 50px;
 }

@@ -15,6 +15,7 @@ export const initialState: ConfigState = {
     label: "",
     rows: 0,
     columns: 0,
+    items: 0,
   },
 };
 

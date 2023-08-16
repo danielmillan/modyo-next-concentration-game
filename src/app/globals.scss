@@ -56,7 +56,6 @@ body {
   padding: 0;
   background-color: #0e6cc4;
   overflow-x: hidden;
-  overflow-y: hidden;
 }
 
 .background_main {
@@ -229,8 +228,8 @@ body {
 
 // Game Board
 .game-card {
-  width: 150px;
-  height: 200px;
+  width: 100px;
+  height: 150px;
   perspective: 1000px;
   cursor: pointer;
 }
@@ -240,6 +239,11 @@ body {
   height: 100%;
   transform-style: preserve-3d;
   transition: transform 0.5s;
+
+  img {
+    width: 100px;
+    height: 150px;
+  }
 }
 
 .game-card.flipped .game-card-inner {
@@ -254,9 +258,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.game-card-front {
   background-color: #f0f0f0;
 }
 

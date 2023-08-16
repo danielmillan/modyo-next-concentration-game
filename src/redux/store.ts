@@ -11,6 +11,7 @@ import {
 } from "redux-persist";
 import storage from "./storage";
 import configReducer from "./slices/config";
+import gameReducer from "./slices/game";
 
 const persistConfig = {
   key: "root",
@@ -20,6 +21,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   config: configReducer,
+  game: gameReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
