@@ -1,0 +1,103 @@
+name: Master WorkFlow
+
+on:
+  push:
+    branches: [master]
+env:
+  language: javascript
+
+jobs:
+  install-dev-dependencies:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Restore or save cache for Dev Dependencies
+        uses: actions/cache@v3
+        env:
+          cache-name: npm-node-modules-dev
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+      - name: Install Dependencies
+        run: |
+          if [ -d "node_modules" ]; then
+            echo 'Dependencies already exists!'
+          else
+            npm ci
+          fi
+  install-prod-dependencies:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Restore or save cache for prod Dependencies
+        uses: actions/cache@v3
+        env:
+          cache-name: npm-node-modules-prod
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-prod
+      - name: Install Dependencies
+        run: |
+          if [ -d "node_modules" ]; then
+            echo 'Dependencies already exists!'
+          else
+            npm ci --only=prod
+          fi
+  lint:
+    runs-on: ubuntu-20.04
+    needs: install-dev-dependencies
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Restore or save cache for Dev Dependencies
+        uses: actions/cache@v3
+        env:
+          cache-name: npm-node-modules-dev
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+      - name: Run lint
+        run: npm run lint
+  build:
+    runs-on: ubuntu-20.04
+    needs: [install-prod-dependencies, lint]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Restore or save cache for dev Dependencies
+        uses: actions/cache@v3
+        env:
+          cache-name: npm-node-modules-dev
+        with:
+          path: node_modules
+          key: npm-${{ env.cache-name }}-${{ hashFiles('**/package.json') }}-dev
+      - name: Generate build folder
+        run: |
+          npm run build
+  webhook-production:
+    runs-on: ubuntu-20.04
+    environment: production
+    needs: [build]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+      - name: Execute webhook AWS
+        run: |
+          curl --location '${{ secrets.DEPLOY_HOOK }}' --header 'Content-Type: application/json'
