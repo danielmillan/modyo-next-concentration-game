@@ -11,6 +11,7 @@ import { useAppDispatch } from "@/redux/hooks";
 import { setMatrix } from "@/redux/slices/config";
 import { MatrixDefinition } from "@/types/MatrixDefinition";
 import { restoreStorage } from "@/redux/slices/game";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Concentration Game - Modyo",
@@ -59,6 +60,10 @@ export default function Setup() {
                 <Button type="submit" variant="primary" className="w-100">
                   Crear Juego
                 </Button>
+              </div>
+
+              <div className="mt-3 d-flex justify-content-center">
+                <Link href="/">Regresar</Link>
               </div>
             </form>
           </div>

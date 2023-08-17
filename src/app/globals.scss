@@ -228,7 +228,7 @@ body {
 
 // Game Board
 .game-card {
-  width: 100px;
+  width: 80px;
   height: 150px;
   perspective: 1000px;
   cursor: pointer;
@@ -273,8 +273,14 @@ body {
 
 .matrix {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   justify-content: center;
   align-items: center;
+}
+
+
+@media (max-width: 768px) {
+  .matrix {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }

@@ -17,6 +17,13 @@
     color: red;
   }
 
+  .top_container {
+    margin-top: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   .matrix_container {
     margin-top: 30px;
     display: flex;
@@ -26,4 +33,19 @@
 
 .mtop_50 {
   margin-top: 50px;
+}
+
+@media (max-width: 768px) {
+  .top_container {
+    flex-direction: column;
+
+    div {
+      margin-bottom: 10px;
+      width: 100%;
+    }
+  }
+
+  .mtop_50 {
+    margin: 15px 15px;
+  }
 }

@@ -63,13 +63,13 @@ export default function Home() {
         </Card.Body>
       </Card>
 
-      <Modal show={showScores} onHide={handleCloseScores} centered>
+      <Modal show={showScores} onHide={handleCloseScores} centered scrollable>
         <Modal.Header closeButton>
           <Modal.Title>Tabla de puntuaciones</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">
-            <Table striped bordered hover>
+            <Table striped bordered hover style={{ textAlign: "center" }}>
               <thead>
                 <tr>
                   <th>Nombre</th>

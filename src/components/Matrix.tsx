@@ -1,4 +1,3 @@
-// @ts-ignore
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -46,6 +45,7 @@ export default function Matrix({
   const [selectedCards, setSelectedCards] = useState<
     { index: Number; animal: any; isFlipped: boolean }[]
   >([]);
+  const [matchedPairs, setMatchedPairs] = useState<any[]>([]);
   const [isImagesLoaded, setIsImagesLoaded] = useState(false);
   const [showResetGameModal, setShowResetGameModal] = useState(false);
   const dispatch = useAppDispatch();
@@ -122,8 +122,16 @@ export default function Matrix({
     }
   }, [hits]);
 
+  useEffect(() => {
+    if (window.performance) {
+      if (performance.navigation.type == 1) {
+        resetGame();
+      }
+    }
+  }, []);
+
   const clickFunction = (index: number, animal: any) => {
-    if (selectedCards.length < 2) {
+    if (selectedCards.length < 2 && !matchedPairs.includes(index)) {
       setSelectedCards([
         ...selectedCards,
         { index, ...animal, isFlipped: animal.isFlipped },
@@ -137,6 +145,11 @@ export default function Matrix({
         selectedCards[0].animal.meta.name === selectedCards[1].animal.meta.name
       ) {
         dispatch(addHit());
+        setMatchedPairs([
+          ...matchedPairs,
+          selectedCards[0].index,
+          selectedCards[1].index,
+        ]);
         setSelectedCards([]);
       } else {
         selectedCards.map((selectedCard: any) => {
@@ -149,7 +162,9 @@ export default function Matrix({
   };
 
   const onChangeFlippedCard = (index: number, card: any) => {
-    cardImages[index].isFlipped = !card.isFlipped;
+    if (!matchedPairs.includes(index)) {
+      cardImages[index].isFlipped = !card.isFlipped;
+    }
   };
 
   const renderCards = () => {
@@ -203,7 +218,8 @@ export default function Matrix({
         </Modal.Header>
         <Modal.Body>
           <div className="mb-3">
-            Felicidades has completado el tablero en {hits + errors} movimientos
+            Felicidades {userName} has completado el tablero en {hits + errors}{" "}
+            movimientos
           </div>
           <div className="d-flex justify-content-end">
             <Button

@@ -34,14 +34,14 @@ export const matrixSize: MatrixDefinition[] = [
   {
     label: "4x4 (8 imágenes)",
     items: 8,
-    rows: 2,
-    columns: 2,
+    rows: 4,
+    columns: 4,
   },
   {
     label: "3x6 (9 imágenes)",
     items: 9,
-    rows: 2,
-    columns: 2,
+    rows: 3,
+    columns: 6,
   },
   {
     label: "4x5 (10 imágenes)",

@@ -28,7 +28,7 @@ export default function Game() {
     <main className={styles.main}>
       <Card className={`container ${styles.mtop_50}`}>
         <Card.Body>
-          <div className="d-flex justify-content-end">
+          <div className="d-flex justify-content-end mb-3">
             <Link href="/">
               <Button type="button" variant="light">
                 <FontAwesomeIcon
@@ -39,7 +39,7 @@ export default function Game() {
               </Button>
             </Link>
           </div>
-          <div className="mt-3 d-flex justify-content-between align-items-center">
+          <div className={styles.top_container}>
             <div className="d-flex flex-column">
               <span className="fw-bold">
                 Nombre: <span className="fw-normal">{name}</span>
