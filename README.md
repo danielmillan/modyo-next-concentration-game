@@ -5,9 +5,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 First, install dependencies:
 
 ```bash
-npm run dev
+npm install
 # or
-yarn dev
+yarn
 ```
 Run dev server
 
