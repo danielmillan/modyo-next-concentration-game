@@ -205,6 +205,7 @@ export default function Matrix({
   const resetGame = () => {
     dispatch(restoreStorage());
     setIsImagesLoaded(false);
+    setMatchedPairs([]);
     handleCloseResetModal();
   };
 
